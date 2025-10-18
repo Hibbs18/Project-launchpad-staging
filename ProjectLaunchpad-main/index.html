@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Project Launchpad empowers smaller Canadian charities with the tools, expertise, and systems needed to amplify their impact without the overhead.">
+    <title>Project Launchpad - Transform Your Charity's Impact</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+            color: #1f2937;
+            background-color: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .fade-in.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-up {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.6s ease-out;
+        }
+
+        .slide-up.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .slide-left.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .slide-right.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scale-up {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.6s ease-out;
+        }
+
+        .scale-up.animate {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Stagger animation delays */
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+
+        /* Header */
+        .header {
+            padding: 20px 0;
+            background: #ffffff;
+            border-bottom: 1px solid #f3f4f6;
+            position: relative;
+            z-index: 1000;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 800;
+            color: #8c52ff;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #8c52ff 0%, #ff5757 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #6b7280;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #8c52ff;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #ffffff;
+            min-width: 200px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+            padding: 8px 0;
+            border: 1px solid #e5e7eb;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: #4b5563;
+            padding: 12px 20px;
+            text-decoration: none;
+            display: block;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f8fafc;
+            color: #8c52ff;
+        }
+
+        .dropdown > a:after {
+            content: "▼";
+            font-size: 10px;
+            margin-left: 8px;
+            transition: transform 0.2s;
+        }
+
+        .dropdown:hover > a:after {
+            transform: rotate(180deg);
+        }
+
+        .header-buttons {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn-primary {
+            background: #8c52ff;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: #7a47e6;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #6b7280;
+            padding: 12px 24px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            border-color: #8c52ff;
+            color: #8c52ff;
+        }
+
+        .btn-login {
+            background: transparent;
+            color: #6b7280;
+            padding: 12px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-login:hover {
+            border-color: #8c52ff;
+            color: #8c52ff;
+        }
+
+        /* Video Hero Section */
+        .video-hero {
+            padding: 80px 0 120px;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: #1f2937;
+        }
+
+        .hero-text p {
+            font-size: 1.25rem;
+            color: #6b7280;
+            margin-bottom: 40px;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-bottom: 60px;
+        }
+
+        .video-container {
+            position: relative;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .video-placeholder {
+            aspect-ratio: 16/10;
+            background: linear-gradient(135deg, #8c52ff 0%, #ff5757 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            position: relative;
+        }
+
+        .play-button {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #8c52ff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-button:hover {
+            background: white;
+            transform: scale(1.1);
+        }
+
+        .hero-subtext {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-top: 16px;
+            text-align: center;
+        }
+
+        /* Auto-scrolling Partners */
+        .partners-section {
+            padding: 60px 0;
+            background: #ffffff;
+            overflow: hidden;
+        }
+
+        .partners-scroll {
+            white-space: nowrap;
+            animation: scroll 30s linear infinite;
+        }
+
+        .partner-logo {
+            display: inline-block;
+            height: 60px;
+            width: 140px;
+            margin: 0 30px;
+            background: #f3f4f6;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Section Styling */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: #1f2937;
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: #6b7280;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Features with Icons */
+        .features-icons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-icon-card {
+            text-align: center;
+        }
+
+        .feature-icon-large {
+            width: 80px;
+            height: 80px;
+            background: #ff5757;
+            border-radius: 16px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .feature-icon-card h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #1f2937;
+        }
+
+        .feature-icon-card p {
+            color: #6b7280;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            margin: 80px 0;
+        }
+
+        .content-text h2 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1f2937;
+        }
+
+        .content-text p {
+            color: #6b7280;
+            margin-bottom: 20px;
+            line-height: 1.7;
+            font-size: 1.125rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin: 24px 0;
+        }
+
+        .feature-list li {
+            padding: 12px 0;
+            padding-left: 32px;
+            position: relative;
+            color: #4b5563;
+            font-weight: 500;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #8c52ff;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .visual-placeholder {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 16px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            font-size: 1.1rem;
+            border: 2px dashed #cbd5e0;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: #ffffff;
+            padding: 40px 32px;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid #f3f4f6;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, #8c52ff 0%, #ff5757 100%);
+            border-radius: 16px;
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #1f2937;
+        }
+
+        .feature-card p {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        /* Everything in One Place */
+        .everything-section {
+            padding: 80px 0;
+            background: #f8fafc;
+            text-align: center;
+        }
+
+        .everything-video {
+            max-width: 900px;
+            margin: 60px auto;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+
+        .everything-video-content {
+            aspect-ratio: 16/10;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bottom-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 60px;
+            margin-top: 80px;
+        }
+
+        .bottom-stat {
+            text-align: center;
+        }
+
+        .bottom-stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .bottom-stat-label {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: #8c52ff;
+            color: white;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .stats-section .section-title {
+            color: white;
+        }
+
+        .stats-section .section-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .big-stat {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .big-stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Membership Tiers */
+        .membership-section {
+            background: #ffffff;
+        }
+
+        .membership-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .membership-card {
+            background: #f8fafc;
+            border: 2px solid #f3f4f6;
+            border-radius: 16px;
+            padding: 40px 32px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .membership-card:hover {
+            border-color: #8c52ff;
+            transform: translateY(-4px);
+            box-shadow: 0 25px 50px -12px rgba(140, 82, 255, 0.25);
+        }
+
+        .membership-card.featured {
+            border-color: #8c52ff;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+
+        .membership-badge {
+            background: #8c52ff;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            display: inline-block;
+        }
+
+        .membership-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .membership-description {
+            color: #6b7280;
+            margin-bottom: 32px;
+            font-size: 1.125rem;
+        }
+
+        .membership-features {
+            list-style: none;
+            margin-bottom: 32px;
+            text-align: left;
+        }
+
+        .membership-features li {
+            padding: 10px 0;
+            padding-left: 32px;
+            position: relative;
+            color: #4b5563;
+            font-size: 1rem;
+        }
+
+        .membership-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            background: #f8fafc;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-top: 60px;
+        }
+
+        .testimonial-card {
+            background: #ffffff;
+            padding: 32px;
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .testimonial-text {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            margin-bottom: 24px;
+            color: #374151;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #8c52ff 0%, #ff5757 100%);
+            border-radius: 50%;
+        }
+
+        .author-info h4 {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .author-info p {
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+
+        .stars {
+            color: #fbbf24;
+            margin-bottom: 16px;
+            font-size: 1.25rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #8c52ff 0%, #ff5757 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-section .section-title {
+            color: white;
+        }
+
+        .cta-section .section-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .btn-white {
+            background: white;
+            color: #8c52ff;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.125rem;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-outline-white {
+            background: transparent;
+            color: white;
+            padding: 16px 32px;
+            border: 2px solid white;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.125rem;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-outline-white:hover {
+            background: white;
+            color: #8c52ff;
+        }
+
+        /* Newsletter Section */
+        .newsletter-section {
+            background: #ffffff;
+            padding: 80px 0;
+        }
+
+        .newsletter-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .newsletter-text h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: #1f2937;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .email-input {
+            flex: 1;
+            padding: 16px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .email-input:focus {
+            outline: none;
+            border-color: #8c52ff;
+            box-shadow: 0 0 0 3px rgba(140, 82, 255, 0.1);
+        }
+
+        .email-input::placeholder {
+            color: #9ca3af;
+        }
+
+        .btn-subscribe {
+            background: #8c52ff;
+            color: white;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .btn-subscribe:hover {
+            background: #7a47e6;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(140, 82, 255, 0.3);
+        }
+
+        /* Footer */
+        .footer {
+            background: #1f2937;
+            color: white;
+            padding: 60px 20px 30px;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .limited-spots {
+            background: linear-gradient(90deg, #ff5c7f, #8b5cf6);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        a {
+            text-decoration: none;
+        }
+        
+        .spots-remaining {
+            font-size: 3em;
+            font-weight: bold;
+            display: block;
+            margin: 10px 0;
+        }
+        
+        .contact-info {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid #374151;
+        }
+        
+        .contact-info a {
+            color: #8b5cf6;
+            text-decoration: none;
+        }
+
+        .contact-info-b a {
+            color: #8b5cf6;
+            text-decoration: none;
+        }
+        
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .features-icons {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+            
+            .membership-grid,
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .bottom-stats {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .footer-links {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .newsletter-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .newsletter-text h2 {
+                font-size: 2rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .email-input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="project-launchpad-updated.html" class="logo">
+                    <img src="/favicon.png" style="width: 40px; border-radius: 8px;"></img>
+                    <span>Project Launchpad</span>
+                </a>
+                <div class="nav-center">
+                    <ul class="nav-links">
+                        <li><a href="index.html">HOME</a></li>
+                        <li><a href="joinplp.html">JOIN PLP</a></li>
+                        <li class="dropdown">
+                            <a href="about.html">ABOUT</a>
+                            <div class="dropdown-content">
+                                <a href="about/our-story.html">Our Story/Mission</a>
+                                <a href="about/meet-the-founders.html">Meet the Founders</a>
+                                <a href="about/plp-impact-network.html">PLP Impact Network</a>
+                                <a href="about/fuel-our-mission.html">Fuel Our Mission</a>
+                            </div>
+                        </li>
+                        <li class="dropdown">
+                            <a href="support.html">SUPPORT</a>
+                            <div class="dropdown-content">
+                                <a href="support/contact.html">Contact</a>
+                                <a href="support/faq.html">FAQ</a>
+                                <a href="support/help-centre.html">Help Centre</a>
+                                <a href="support/governance.html">Governance</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="header-buttons">
+                    <a href="https://portal.projectlaunchpad.ca/wp-login.php" class="btn-login">Login</a>
+                    <a href="#join" class="btn-primary">Join PLP</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Video Hero Section -->
+    <section class="video-hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="fade-in">Amplify your changemaking with PLP</h1>
+                    <p class="fade-in stagger-1">Join a community of passionate changemakers, access funding opportunities, and turn your vision into reality. Together, we're creating lasting impact across the globe.</p>
+                    
+                    <div class="hero-buttons fade-in stagger-2">
+                        <a href="#apply" class="btn-primary">Start Your Application</a>
+                        <a href="#learn-more" class="btn-secondary">Learn More</a>
+                    </div>
+                </div>
+                
+                <div class="video-container fade-in stagger-3">
+                    <div class="video-placeholder">
+                        <div class="play-button">▶</div>
+                    </div>
+                </div>
+                
+                <div class="hero-subtext fade-in stagger-4">
+                    <p>See how PLP members are creating impact worldwide</p>
+                    <p>Current version: Community Platform 2.0 | <a href="#whats-new" style="color: #8c52ff;">What's New?</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Auto-scrolling Partner Logos -->
+    <section class="partners-section">
+        <div class="partners-scroll">
+            <div class="partner-logo">HOSTING</div>
+            <div class="partner-logo">IMPACT</div>
+            <div class="partner-logo">INTEDECO</div>
+            <div class="partner-logo">SPARK</div>
+            <div class="partner-logo">MOUNTAIN</div>
+            <div class="partner-logo">GLOBAL</div>
+            <div class="partner-logo">CONNECT</div>
+            <div class="partner-logo">CHANGE</div>
+            <div class="partner-logo">HOSTING</div>
+            <div class="partner-logo">IMPACT</div>
+            <div class="partner-logo">INTEDECO</div>
+            <div class="partner-logo">SPARK</div>
+        </div>
+    </section>
+
+    <!-- Features with Icons Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title fade-in">Efficiently create, manage and amplify your impact</h2>
+                <p class="section-subtitle fade-in stagger-1">Connect with resources, collaborate on solutions, and scale your changemaking efforts with our comprehensive platform.</p>
+            </div>
+            
+            <div class="features-icons">
+                <div class="feature-icon-card scale-up stagger-1">
+                    <div class="feature-icon-large">🚀</div>
+                    <h3>Quick Access</h3>
+                    <p>Instantly connect with opportunities, resources, and like-minded changemakers worldwide.</p>
+                </div>
+                <div class="feature-icon-card scale-up stagger-2">
+                    <div class="feature-icon-large">📋</div>
+                    <h3>Project Manager</h3>
+                    <p>Organize your initiatives, track progress, and collaborate seamlessly with your team.</p>
+                </div>
+                <div class="feature-icon-card scale-up stagger-3">
+                    <div class="feature-icon-large">🤝</div>
+                    <h3>Community Sharing</h3>
+                    <p>Share your story, learn from others, and build meaningful partnerships.</p>
+                </div>
+                <div class="feature-icon-card scale-up stagger-4">
+                    <div class="feature-icon-large">☁️</div>
+                    <h3>Impact & Analytics</h3>
+                    <p>Track your progress, measure outcomes, and showcase your impact to funders.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Two Column: More Productivity -->
+    <section class="section">
+        <div class="container">
+            <div class="two-column">
+                <div class="visual-placeholder slide-left">
+                    Changemaker Dashboard
+                </div>
+                <div class="content-text slide-right">
+                    <h2>More productivity with less effort</h2>
+                    <p>Our platform streamlines every aspect of changemaking—from initial idea development to scaling successful solutions. Focus on what matters most: creating impact.</p>
+                    <div style="margin: 24px 0;">
+                        <h4 style="color: #1f2937; margin-bottom: 16px;">Quick and simple setup</h4>
+                        <ul class="feature-list">
+                            <li>Connect with your network in minutes</li>
+                            <li>Access funding opportunities matched to your mission</li>
+                            <li>Get mentorship from experienced changemakers</li>
+                            <li>Launch projects with community support</li>
+                        </ul>
+                    </div>
+                    <a href="#apply" class="btn-primary">Join Our Community</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Grid: The Complete Solutions -->
+    <section class="section" style="background: #f8fafc;">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title fade-in">The Complete Solutions</h2>
+                <p class="section-subtitle fade-in stagger-1">Everything you need to transform ideas into lasting impact, all in one integrated platform.</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card slide-up stagger-1">
+                    <div class="feature-icon">📱</div>
+                    <h3>Friendly Interface</h3>
+                    <p>Intuitive design that makes collaboration and project management effortless for changemakers of all technical levels.</p>
+                </div>
+                <div class="feature-card slide-up stagger-2">
+                    <div class="feature-icon">🔧</div>
+                    <h3>Extensions & Add-ons</h3>
+                    <p>Connect with your favorite tools and platforms to create a seamless workflow that fits your existing processes.</p>
+                </div>
+                <div class="feature-card slide-up stagger-3">
+                    <div class="feature-icon">✏️</div>
+                    <h3>Flexible Collaboration</h3>
+                    <p>Work with team members, mentors, and partners in real-time, whether you're across the street or across the globe.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Everything in One Place with Video -->
+    <section class="everything-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title fade-in">Everything in One Place</h2>
+                <p class="section-subtitle fade-in stagger-1">Manage projects, connect with collaborators, access resources, and track your impact—all from one powerful platform.</p>
+            </div>
+            
+            <div class="everything-video fade-in stagger-2">
+                <div class="everything-video-content">
+                    <div class="play-button">▶</div>
+                </div>
+            </div>
+            
+            <div class="bottom-stats">
+                <div class="bottom-stat scale-up stagger-1">
+                    <div class="bottom-stat-number rolling-counter" data-count="89">0</div>
+                    <div class="bottom-stat-label">Active projects completed with community support</div>
+                </div>
+                <div class="bottom-stat scale-up stagger-2">
+                    <div class="bottom-stat-number rolling-counter" data-count="76">0</div>
+                    <div class="bottom-stat-label">Members report increased impact within 6 months</div>
+                </div>
+                <div class="bottom-stat scale-up stagger-3">
+                    <div class="bottom-stat-number rolling-counter" data-count="4.93">0</div>
+                    <div class="bottom-stat-label">Average member satisfaction rating</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section stats-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title fade-in">The PLP Impact</h2>
+                <p class="section-subtitle fade-in stagger-1">Our community is already making waves across the world. Here's what we've achieved together.</p>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-item scale-up stagger-1">
+                    <div class="big-stat">500+</div>
+                    <div class="big-stat-label">Active Changemakers</div>
+                </div>
+                <div class="stat-item scale-up stagger-2">
+                    <div class="big-stat">120+</div>
+                    <div class="big-stat-label">Projects Launched</div>
+                </div>
+                <div class="stat-item scale-up stagger-3">
+                    <div class="big-stat">$2.5M+</div>
+                    <div class="big-stat-label">Funding Facilitated</div>
+                </div>
+                <div class="stat-item scale-up stagger-4">
+                    <div class="big-stat">45+</div>
+                    <div class="big-stat-label">Countries Represented</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Membership Tiers -->
+    <section class="section membership-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title fade-in">Choose Your Impact Level</h2>
+                <p class="section-subtitle fade-in stagger-1">Whether you're just starting your changemaking journey or ready to lead major initiatives, we have a place for you.</p>
+            </div>
+            
+            <div class="membership-grid">
+                <div class="membership-card scale-up stagger-1">
+                    <div class="membership-title">Changemaker</div>
+                    <div class="membership-description">Perfect for passionate individuals ready to make their mark</div>
+                    <ul class="membership-features">
+                        <li>Access to PLP community platform</li>
+                        <li>Monthly virtual networking events</li>
+                        <li>Resource library and toolkits</li>
+                        <li>Project collaboration opportunities</li>
+                        <li>Peer mentoring connections</li>
+                        <li>Newsletter and community updates</li>
+                    </ul>
+                    <a href="#apply-changemaker" class="btn-primary">Apply as Changemaker</a>
+                </div>
+                
+                <div class="membership-card featured scale-up stagger-2">
+                    <div class="membership-badge">Leadership Track</div>
+                    <div class="membership-title">Impact Leader</div>
+                    <div class="membership-description">For experienced leaders ready to drive systemic change</div>
+                    <ul class="membership-features">
+                        <li>All Changemaker benefits</li>
+                        <li>1:1 strategic mentoring sessions</li>
+                        <li>Priority funding consideration</li>
+                        <li>Leadership development programs</li>
+                        <li>Speaking and partnership opportunities</li>
+                        <li>Advisory board consideration</li>
+                        <li>Exclusive leader retreats</li>
+                    </ul>
+                    <a href="#apply-leader" class="btn-primary">Apply as Impact Leader</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title fade-in">What Our Members Say</h2>
+                <p class="section-subtitle fade-in stagger-1">Hear from changemakers who've transformed their impact through PLP.</p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card scale-up stagger-1">
+                    <div class="stars">★★★★★</div>
+                    <div class="testimonial-text">"PLP gave me the network and resources I needed to turn my education nonprofit from a local initiative into a global movement affecting thousands of students."</div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"></div>
+                        <div class="author-info">
+                            <h4>Sarah Chen</h4>
+                            <p>Education Innovator, Impact Leader</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card scale-up stagger-2">
+                    <div class="stars">★★★★★</div>
+                    <div class="testimonial-text">"The mentorship and collaboration opportunities in PLP accelerated my climate tech startup by years. I found my co-founder and lead investor through the network."</div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar"></div>
+                        <div class="author-info">
+                            <h4>Marcus Johnson</h4>
+                            <p>Climate Tech Entrepreneur, Changemaker</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ready to Join CTA -->
+    <section class="section cta-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title fade-in">Ready to amplify your impact?</h2>
+                <p class="section-subtitle fade-in stagger-1">Join hundreds of changemakers already transforming the world through Project Launchpad. Your vision, our community, infinite possibilities.</p>
+            </div>
+            <div class="fade-in stagger-2">
+                <a href="#apply" class="btn-white">Start Your Application</a>
+                <a href="#learn-more" class="btn-outline-white">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="section newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <div class="newsletter-text fade-in">
+                    <h2>Stay up to date with our news, ideas and updates</h2>
+                </div>
+                <div class="newsletter-form fade-in stagger-1">
+                    <input type="email" placeholder="Your email address" class="email-input">
+                    <button type="submit" class="btn-subscribe">Subscribe Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <a href="https://telosone.typeform.com/to/A5Nst6iE" style="text-decoration: none;">
+                <div class="limited-spots">
+                    <h3>Get Priority Access</h3>
+                    <span class="spots-remaining">Fall 2025 Launch: <br> Join the Waitlist</span>
+                </div>
+            </a>
+            <p>Be first in line when Project Launchpad launches—unlock expert tools, exclusive savings, and practical resources designed to help your charity do more with less from day one.</p>
+            <div class="contact-info">
+                <p><strong>Connect With Us</strong></p>
+                <p>📧 <a href="mailto:hello@projectlaunchpad.ca">hello@projectlaunchpad.ca</a></p>
+                <p>👥 <a href="https://www.linkedin.com/company/projectlaunchpad/">LinkedIn</a></p>
+            </div>
+            <p class="contact-info-b" style="margin-top: 30px; opacity: 0.8;">
+                Project Launchpad is a collaboration between <a href="https://harmoniaphilanthropy.ca/">Harmonia Philanthropy</a> and <a href="https://telos.one/">Telos One</a><br>
+                Built for impact, not profit. Designed exclusively for Canada's smaller charities.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        // Rolling counter animation function
+        function animateRollingCounter(element) {
+            const target = parseFloat(element.getAttribute('data-count'));
+            let current = 0;
+            const increment = target / 100;
+            const duration = 2000;
+            const stepTime = duration / 100;
+
+            function updateCounter() {
+                if (current < target) {
+                    current += increment;
+                    if (current > target) current = target;
+                    
+                    if (target >= 100) {
+                        element.textContent = Math.floor(current) + 'k';
+                    } else if (target < 10) {
+                        element.textContent = current.toFixed(2);
+                    } else {
+                        element.textContent = Math.floor(current) + '%';
+                    }
+                    
+                    setTimeout(updateCounter, stepTime);
+                }
+            }
+            
+            updateCounter();
+        }
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                    
+                    // Trigger rolling counter animation
+                    if (entry.target.classList.contains('rolling-counter')) {
+                        animateRollingCounter(entry.target);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with animation classes
+        const animatedElements = document.querySelectorAll('.fade-in, .slide-up, .slide-left, .slide-right, .scale-up, .rolling-counter');
+        animatedElements.forEach(el => observer.observe(el));
+
+        // Video play button functionality
+        document.querySelectorAll('.play-button').forEach(button => {
+            button.addEventListener('click', function() {
+                alert('Video would play here! This could be a demo of your dashboard or community in action.');
+            });
+        });
+
+        // Newsletter subscription functionality
+        document.querySelector('.btn-subscribe')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            const emailInput = document.querySelector('.email-input');
+            const email = emailInput.value.trim();
+            
+            if (!email) {
+                alert('Please enter your email address.');
+                return;
+            }
+            
+            if (!isValidEmail(email)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            
+            // Simulate subscription
+            this.innerHTML = 'Subscribing...';
+            this.disabled = true;
+            
+            setTimeout(() => {
+                alert('Thank you for subscribing to Project Launchpad updates!');
+                emailInput.value = '';
+                this.innerHTML = 'Subscribe Now';
+                this.disabled = false;
+            }, 1000);
+        });
+
+        // Email validation function
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // Handle Enter key in email input
+        document.querySelector('.email-input')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.querySelector('.btn-subscribe').click();
+            }
+        });
+
+        // Trigger initial animations for elements in viewport
+        window.addEventListener('load', () => {
+            const heroElements = document.querySelectorAll('.video-hero .fade-in');
+            heroElements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.classList.add('animate');
+                }, index * 200);
+            });
+        });
+    </script>
+</body>
+</html>
